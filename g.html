@@ -284,6 +284,12 @@
     <div class="result-summary">
         <h2>លទ្ធផលនៃការប្រឡង</h2>
         <div style="font-size: 18px; color: #34495e;">ឈ្មោះ៖ <strong id="res-name"></strong> | រយៈពេល៖ <strong id="res-time"></strong></div>
+        
+        <!-- កន្លែងបង្ហាញកាលបរិច្ឆេទស្វ័យប្រវត្តិ -->
+        <div style="font-size: 15px; color: #7f8c8d; margin-top: 10px; font-style: italic;">
+            កាលបរិច្ឆេទ៖ <strong id="res-datetime"></strong>
+        </div>
+
         <div class="score-display">ពិន្ទុរបស់អ្នក៖ <span id="res-score"></span> / 100</div>
         <div class="grade-display">និទ្ទេស៖ <span id="res-grade"></span></div>
         <div class="motivational-msg" id="res-msg"></div>
@@ -453,6 +459,21 @@
         
         clearInterval(timerInterval);
         
+        // ចាប់យកកាលបរិច្ឆេទ និងម៉ោងពេលបញ្ចប់
+        const now = new Date();
+        const days = ["អាទិត្យ", "ច័ន្ទ", "អង្គារ", "ពុធ", "ព្រហស្បតិ៍", "សុក្រ", "សៅរ៍"];
+        const months = ["មករា", "កុម្ភៈ", "មីនា", "មេសា", "ឧសភា", "មិថុនា", "កក្កដា", "សីហា", "កញ្ញា", "តុលា", "វិច្ឆិកា", "ធ្នូ"];
+        
+        let dayName = days[now.getDay()];
+        let dateNum = now.getDate();
+        let monthName = months[now.getMonth()];
+        let year = now.getFullYear();
+        let hours = now.getHours().toString().padStart(2, '0');
+        let minutes = now.getMinutes().toString().padStart(2, '0');
+        let seconds = now.getSeconds().toString().padStart(2, '0');
+        
+        let formattedDateTime = `ថ្ងៃ ${dayName} ទី ${dateNum} ខែ ${monthName} ឆ្នាំ ${year} ម៉ោង ${hours} នាទី ${minutes} វិនាទី ${seconds}`;
+        
         let score = 0;
         let reviewHtml = '';
         
@@ -519,6 +540,7 @@
         
         document.getElementById('res-name').innerText = studentName;
         document.getElementById('res-time').innerText = document.getElementById('timer').innerText;
+        document.getElementById('res-datetime').innerText = formattedDateTime; // បញ្ចូលកាលបរិច្ឆេទទៅក្នុង HTML
         document.getElementById('res-score').innerText = score;
         document.getElementById('res-grade').innerText = grade;
         document.getElementById('res-msg').innerText = msg;
